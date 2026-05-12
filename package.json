@@ -4,7 +4,7 @@
   "description": "Website template for Payload",
   "license": "MIT",
   "type": "module",
-  "scripts": {h
+  "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev --turbo -p 3000",
     "dev:prod": "cross-env NODE_OPTIONS=--no-deprecation rm -rf .next && pnpm build && pnpm start",
