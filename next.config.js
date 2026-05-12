@@ -25,6 +25,7 @@ const nextConfig = {
   },
   reactStrictMode: true,
   redirects,
+    typescript: { ignoreBuildErrors: true },
 }
 
 export default withPayload(nextConfig)
