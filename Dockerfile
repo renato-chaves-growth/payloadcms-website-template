@@ -1,24 +1,32 @@
 FROM node:20-alpine AS base
 
-# Install pnpm
-RUN npm install -g pnpm
+# Install system dependencies for sharp and other native modules
+RUN apk add --no-cache \
+    vips-dev \
+        python3 \
+            make \
+                g++ \
+                    libc6-compat
 
-WORKDIR /app
+                    # Install pnpm
+                    RUN npm install -g pnpm
 
-# Copy package files
-COPY package.json ./
+                    WORKDIR /app
 
-# Install dependencies WITHOUT frozen-lockfile
-RUN pnpm install --no-frozen-lockfile
+                    # Copy package files
+                    COPY package.json ./
 
-# Copy the rest of the source
-COPY . .
+                    # Install dependencies WITHOUT frozen-lockfile
+                    RUN pnpm install --no-frozen-lockfile
 
-# Build the application
-RUN pnpm run build
+                    # Copy the rest of the source
+                    COPY . .
 
-EXPOSE 3000
+                    # Build the application
+                    RUN pnpm run build
 
-ENV NODE_ENV=production
+                    EXPOSE 3000
 
-CMD ["pnpm", "start"]
+                    ENV NODE_ENV=production
+
+                    CMD ["pnpm", "start"]
